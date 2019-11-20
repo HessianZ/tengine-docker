@@ -3,7 +3,8 @@ FROM alpine:3.10
 # 生产环境配置
 ENV TENGINE_VERSION="2.3.2" 
 
-ARG APK_HOST="mirrors.tencentyun.com"
+#ARG APK_HOST="mirrors.tencentyun.com"
+ARG APK_HOST="mirrors.aliyun.com"
 
 RUN set -x \
 # create nginx user/group first, to be consistent throughout docker variants
@@ -47,8 +48,9 @@ RUN set -x \
         && tar zxf tengine-${TENGINE_VERSION}.tar.gz \
         && cd tengine-${TENGINE_VERSION} \
         && ./configure --prefix=/usr --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid \
-        && make \
-        && make install" \
+        && make" \
+    && cd ${tempDir}/tengine-${TENGINE_VERSION} \
+    && make install \
     && apk del .build-deps \
 # if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
     && if [ -n "$tempDir" ]; then rm -rf "$tempDir"; fi \
