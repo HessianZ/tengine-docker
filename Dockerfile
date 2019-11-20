@@ -47,7 +47,7 @@ RUN set -x \
         && wget http://tengine.taobao.org/download/tengine-${TENGINE_VERSION}.tar.gz \
         && tar zxf tengine-${TENGINE_VERSION}.tar.gz \
         && cd tengine-${TENGINE_VERSION} \
-        && ./configure --prefix=/usr --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid \
+        && ./configure --with-http_v2_module --prefix=/usr --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid \
         && make" \
     && cd ${tempDir}/tengine-${TENGINE_VERSION} \
     && make install \
