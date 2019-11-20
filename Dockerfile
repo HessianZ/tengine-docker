@@ -44,7 +44,7 @@ RUN set -x \
         && wget http://tengine.taobao.org/download/tengine-${TENGINE_VERSION}.tar.gz \
         && tar zxf tengine-${TENGINE_VERSION}.tar.gz \
         && cd tengine-${TENGINE_VERSION} \
-        && ./configure --prefix=/usr --conf-paht=/etc/nginx/nginx.conf --pid-paht=/var/run/nginx.pid \
+        && ./configure --prefix=/usr --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid \
         && make \
         && make install" \
     && apk del .build-deps \
