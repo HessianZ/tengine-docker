@@ -3,11 +3,13 @@ FROM alpine:3.10
 # 生产环境配置
 ENV TENGINE_VERSION="2.3.2" 
 
+ARG APK_HOST="mirrors.tencentyun.com"
+
 RUN set -x \
 # create nginx user/group first, to be consistent throughout docker variants
     && export ALPINE_VERSION=$(sed 's/\.\d\+$//' /etc/alpine-release) \
-    && echo "https://mirrors.cloud.tencent.com/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories \
-    && echo "https://mirrors.cloud.tencent.com/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories \
+    && echo "https://${APK_HOST}/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories \
+    && echo "https://${APK_HOST}/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories \
     && apk update \
     && addgroup -g 101 -S nginx \
     && adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
